@@ -2,11 +2,11 @@
   "name": "calm",
   "scripts": {
     "watch:js": "rollup -w -i assets/main.js -o public/main.js -f iife -n main",
-    "watch:css": "node-sass -w assets/main.scss public/main.css",
-    "prewatch:css": "node-sass assets/main.scss public/main.css"
+    "watch:css": "postcss assets/main.css -o public/main.css -w"
   },
   "devDependencies": {
-    "rollup": "^0.67.1",
-    "node-sass": "^4.10.0"
+    "postcss-cli": "^7.1.0",
+    "rollup": "^2.6.1",
+    "tailwindcss": "^1.2.0"
   }
 }
