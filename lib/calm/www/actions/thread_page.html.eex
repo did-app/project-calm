@@ -1,0 +1,98 @@
+<div class="flex flex-col h-full overflow-y-hidden mx-auto max-w-3xl bg-white shadow-2xl overflow-hidden">
+  <header class="bg-gray-300">
+    <h1 class="p-4 text-xl truncate">A Demo thread explaing how I would use Calm</h1>
+  </header>
+  <div id="updates" class="flex-auto overflow-y-auto">
+    <article class="mx-4 my-6">
+      <header class="my-2">
+        <span class="inline-block mr-2 px-4 rounded bg-gray-700 text-white">Peter</span>
+        <span class="text-gray-500">2hr</span>
+      </header>
+      <p class="whitespace-pre-line">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
+        https://did.app/docs
+        A much smaller random paragraph</p>
+    </article>
+    <article class="mx-4 my-6">
+      <header class="my-2">
+        <span class="inline-block mr-2 px-4 rounded bg-teal-700 text-white">Susan Furtado</span>
+        <span class="text-gray-500">5 min</span>
+      </header>
+      <p class="whitespace-pre-line">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </article>
+    <article class="mx-4 my-6">
+      <header class="my-2">
+        <span class="inline-block  mr-2 px-4 rounded bg-gray-700 text-white">Peter</span>
+        <span class="text-gray-500">2hr</span>
+      </header>
+      <p class="whitespace-pre-line">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
+        - one
+        - two
+
+        1. one
+        2. two
+
+        A much smaller random paragraph</p>
+    </article>
+  </div>
+  <footer class="">
+    <div class="mx-4 my-2 p-2 border-2 rounded focus-within:border-gray-500">
+      <form class="" action="index.html" method="post">
+
+        <textarea class="w-full resize-y rounded focus:outline-none overflow-auto" placeholder="Write an update.
+To share a link include the 'http' prefix." style="min-height:4.5em;max-height:40vh;"></textarea>
+        <div class="flex flex-row-reverse">
+          <button class="font-bold mx-1 py-1 px-4 bg-gray-200 hover:bg-gray-400 rounded" type="submit" name="button">Send</button>
+          <button class="text-gray-700 mx-1 py-1 px-4 hover:bg-gray-300 rounded" type="reset" name="button">Discard</button>
+        </div>
+        <!-- <div class="flex">
+          <button class="font-bold ml-auto py-1 px-4" type="submit" name="button">Send</button>
+        </div> -->
+      </form>
+
+    </div>
+  </footer>
+  <!-- <footer class="p-4 shadow-xl">
+    <form class="" action="index.html" method="post">
+
+      <textarea class="w-full resize-y p-2 focus:bg-gray-100 focus:outline-none"></textarea>
+      <button type="submit" name="button">Submit</button>
+    </form>
+  </footer> -->
+</div>
+<script type="text/javascript">
+  var autoExpand = function (field) {
+
+    // Reset field height
+    field.style.height = 'inherit';
+
+    // Get the computed styles for the element
+    var computed = window.getComputedStyle(field);
+
+    // Calculate the height
+    var height = parseInt(computed.getPropertyValue('border-top-width'), 10)
+                 + parseInt(computed.getPropertyValue('padding-top'), 10)
+                 + field.scrollHeight
+                 + parseInt(computed.getPropertyValue('padding-bottom'), 10)
+                 + parseInt(computed.getPropertyValue('border-bottom-width'), 10);
+
+    field.style.height = height + 'px';
+
+  };
+
+  document.addEventListener('input', function (event) {
+    if (event.target.tagName.toLowerCase() !== 'textarea') return;
+    autoExpand(event.target);
+  }, false);
+
+  var urlRegex = /(https?:\/\/[^\s]+[a-z])/g
+  function insertLinks($element) {
+    $element.innerHTML = $element.innerText.replace(urlRegex, function (url) {
+      return '<a class="text-indigo-500 hover:text-indigo-800 focus:text-indigo-800 hover:underline focus:underline " href="' + url + '">' + url + '</a>';
+    })
+    // take text insert html
+  }
+  $updates = document.querySelectorAll("#updates p").forEach(insertLinks)
+  console.log($updates);
+</script>

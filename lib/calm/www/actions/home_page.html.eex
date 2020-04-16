@@ -1,24 +1,16 @@
-<main class="centered">
-  <section class="accent">
-    <%= page_header(greeting) %>
-    <form action="/" method="post">
+<main class="p-6">
+  <header class="p-4 text-2xl">
+    <h1>Calm</h1>
+  </header>
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  <textarea class="block border-2 w-full" ></textarea>
+  <h2 class="text-2xl ">View my inbox</h2>
+    <!-- <form action="/" method="post">
       <input type="hidden" name="_csrf_token" value="<%= csrf_token %>">
       <label>
         <span>tell us your name</span>
         <input type="text" name="name" value="" autofocus>
       </label>
       <button type="submit">Submit</button>
-    </form>
-    <h2>Find out more</h2>
-    <nav>
-      <a href="https://github.com/CrowdHailer/raxx">SOURCE CODE</a>
-      <a href="https://elixir-lang.slack.com/messages/C56H3TBH8/">CHAT</a>
-    </nav>
-    <%= javascript_variables greeting: greeting %>
-    <script type="text/javascript">
-      document.addEventListener('DOMContentLoaded', function () {
-        app.show(greeting)
-      })
-    </script>
-  </section>
+    </form> -->
 </main>
