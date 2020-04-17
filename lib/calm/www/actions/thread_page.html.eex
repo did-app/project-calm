@@ -13,6 +13,10 @@
       </article>
 
     <% end %>
+    <!-- <span class="block text-center font-bold text-gray-500">Your up to date</span> -->
+    <div class="">
+      <hr class="my-2 mx-auto w-1/4 border-2 border-gray-300">
+    </div>
   </div>
   <!-- TODO Readme, pretty much all JS is optional -->
   <footer class="">
