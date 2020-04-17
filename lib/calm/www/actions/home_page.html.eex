@@ -13,12 +13,28 @@
     <div class="mx-4">
       <hr class="w-1/2 mx-auto">
     </div>
-    <%= if latest == [] do %>
     <article class="mx-4 my-4">
-      <p class="whitespace-pre-line">You don't have any new messages.</p>
+      <p class="font-bold text-gray-600">Unread messages</p>
+      <%= if unread == [] do %>
+      <p class="">You don't have any unread messages.</p>
+      <%= else %>
+      <% end %>
     </article>
+    <%= for update <- unread do %>
+    <a class="block mx-4 my-6 border-l-2 pl-4 border-black cursor-pointer" href="/t/<%= update.invite.thread_id %>">
+      <header class="">
+        <span class="inline-block mr-2 font-bold"><%= update.invite.thread.subject %></span>
+        <!-- <span class="inline-block mr-2 px-4 rounded bg-<%= update.invite.color %>-700 text-white"><%= update.invite.nickname %></span> -->
+        <span class="text-gray-500"><%= Calm.WWW.Actions.ThreadPage.update_time(update) %></span>
+      </header>
+      <p class="whitespace-pre-line text-gray-600"><%= update.invite.nickname %>: <%= hd(String.split(update.text, ~r/\R/, parts: 2)) %></p>
+      <!-- <p class="whitespace-pre-line"><%= update.invite.nickname %>: <%= update.text %></p> -->
+    </a>
     <% end %>
-    <%= for update <- latest do %>
+    <article class="mx-4 my-4">
+      <p class="font-bold text-gray-600">Previous messages</p>
+    </article>
+    <%= for update <- recent do %>
     <a class="block mx-4 my-6 border-l-2 pl-4 border-black cursor-pointer" href="/t/<%= update.invite.thread_id %>">
       <header class="">
         <span class="inline-block mr-2 font-bold"><%= update.invite.thread.subject %></span>

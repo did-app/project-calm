@@ -1,6 +1,6 @@
 defmodule Calm.WWW.Actions.HomePage do
   use Raxx.SimpleServer
-  use Calm.WWW.Layout, arguments: [:latest]
+  use Calm.WWW.Layout, arguments: [:unread, :recent]
 
   @impl Raxx.SimpleServer
   def handle_request(request = %{method: :GET}, config) do
@@ -10,8 +10,19 @@ defmodule Calm.WWW.Actions.HomePage do
 
     latest = load_latest(thread_ids)
 
+    # NOTE this shows up as a charlist
+    invite_ids = for {_key, {invite_id, _invite_secret}} <- session.threads, do: invite_id
+
+    latest =
+      Enum.group_by(latest, fn message ->
+        Enum.member?(invite_ids, message.invite_id)
+      end)
+
+    unread = Map.get(latest, false, [])
+    recent = Map.get(latest, true, [])
+
     response(:ok)
-    |> render(latest)
+    |> render(unread, recent)
   end
 
   def load_latest(thread_ids) do
