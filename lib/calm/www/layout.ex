@@ -1,6 +1,6 @@
 defmodule Calm.WWW.Layout do
   use Raxx.View.Layout,
-    optional: [flash: %{}, title: "calm"]
+    optional: [flash: %{}, title: "Calm"]
 
   # Shared template helper functions.
   # Use `~E` or the `partial/3` macro to generate HTML safely.

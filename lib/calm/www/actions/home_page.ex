@@ -18,8 +18,8 @@ defmodule Calm.WWW.Actions.HomePage do
         Enum.member?(invite_ids, message.invite_id)
       end)
 
-    unread = Map.get(latest, false, [])
-    recent = Map.get(latest, true, [])
+    unread = Enum.reverse(Map.get(latest, false, []))
+    recent = Enum.reverse(Map.get(latest, true, []))
 
     response(:ok)
     |> render(unread, recent)
