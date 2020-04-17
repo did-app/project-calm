@@ -4,18 +4,16 @@
   </header>
   <div id="updates" class="flex-auto overflow-y-auto">
     <%= for update <- messages do %>
-    <article id="<%= update.cursor %>" class="mx-4 my-6">
+    <article id="<%= update.cursor %>" class="mx-4 my-4">
       <header class="my-2">
         <span class="inline-block mr-2 px-4 rounded bg-<%= update.invite.color %>-700 text-white"><%= update.invite.nickname %></span>
-        <span class="text-gray-500"><%= update.inserted_at %></span>
+        <span class="text-gray-500"><%= update_time(update) %></span>
       </header>
       <p class="whitespace-pre-line"><%= update.text %></p>
       </article>
 
     <% end %>
   </div>
-  <!-- TODO show who you are writing as -->
-  <!-- TODO Poll for updates -->
   <!-- TODO Readme, pretty much all JS is optional -->
   <footer class="">
     <div class="mx-4 my-2 p-2 border-2 rounded focus-within:border-gray-500">
@@ -23,9 +21,10 @@
         <input type="hidden" name="_csrf_token" value="<%= csrf_token %>">
         <textarea class="w-full resize-y rounded focus:outline-none overflow-auto" placeholder="Write an update.
 To share a link include the 'http' prefix." style="min-height:4.5em;max-height:40vh;" name="text"></textarea>
-        <div class="flex flex-row-reverse">
+        <div class="flex flex-row-reverse items-center">
           <button class="font-bold mx-1 py-1 px-4 bg-gray-200 hover:bg-gray-400 rounded" type="submit">Send</button>
           <button class="text-gray-700 mx-1 py-1 px-4 hover:bg-gray-300 rounded" type="reset">Discard</button>
+          <!-- <span class="block mr-auto ml-2">Write message as <span class="inline-block mr-2 px-4 rounded bg-<%= invite.color %>-700 text-white"><%= invite.nickname %></span> </span> -->
         </div>
       </form>
     </div>

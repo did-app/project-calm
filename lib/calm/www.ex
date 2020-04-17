@@ -10,10 +10,11 @@ defmodule Calm.WWW do
   end
 
   @session_config Raxx.Session.config(
-                    key: "my_app_session",
+                    key: "calm_session",
                     store: Raxx.Session.SignedCookie,
                     secret_key_base: System.get_env("SECRET_KEY_BASE"),
-                    salt: "VSLaz9"
+                    salt: "VSLaz9",
+                    max_age: 365 * 24 * 60 * 60
                   )
 
   # This works even if the reference file is not available at start up,

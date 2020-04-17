@@ -1,7 +1,7 @@
 defmodule Calm.WWW.Actions.PostMessage do
   use Raxx.SimpleServer
 
-  def handle_request(request, config) do
+  def handle_request(request = %{method: :POST}, config) do
     ["t", thread_id, "post"] = request.path
     {thread_id, ""} = Integer.parse(thread_id)
 
@@ -9,7 +9,7 @@ defmodule Calm.WWW.Actions.PostMessage do
     {:ok, csrf_token} = Map.fetch(params, "_csrf_token")
 
     {:ok, session} = Raxx.Session.extract(request, csrf_token, config.session_config)
-    {:ok, invite_id} = Map.fetch(session.threads, thread_id)
+    {:ok, {invite_id, _invite_secret}} = Map.fetch(session.threads, thread_id)
     {:ok, invite} = Calm.Invite.fetch_by_id(invite_id)
 
     {:ok, message} = Calm.Invite.post_message(invite, params)

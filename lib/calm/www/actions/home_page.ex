@@ -1,41 +1,30 @@
 defmodule Calm.WWW.Actions.HomePage do
   use Raxx.SimpleServer
-  use Calm.WWW.Layout, arguments: [:greeting, :csrf_token]
-  alias Raxx.Session
+  use Calm.WWW.Layout, arguments: [:latest]
 
   @impl Raxx.SimpleServer
-  def handle_request(request = %{method: :GET}, state) do
-    {:ok, session} = Session.extract(request, state.session_config)
+  def handle_request(request = %{method: :GET}, config) do
+    {:ok, session} = Raxx.Session.extract(request, config.session_config)
+    session = session || %{threads: %{}}
+    thread_ids = Map.keys(session.threads)
 
-    {csrf_token, session} = Session.get_csrf_token(session)
-    {flash, session} = Session.pop_flash(session)
-
-    greeting = Calm.welcome_message(session[:name])
+    latest = load_latest(thread_ids)
 
     response(:ok)
-    |> Session.embed(session, state.session_config)
-    |> render(greeting, csrf_token, flash: flash)
+    |> render(latest)
   end
 
-  def handle_request(request = %{method: :POST}, state) do
-    data = URI.decode_query(request.body)
-    {:ok, session} = Session.extract(request, data["_csrf_token"], state.session_config)
+  def load_latest(thread_ids) do
+    import Ecto.Query
 
-    case data do
-      %{"name" => name} ->
-        session =
-          session
-          |> Map.put(:name, name)
-          |> Session.put_flash(:info, "Successfully changed name")
+    query =
+      Calm.Message
+      |> order_by([m], desc: m.inserted_at)
+      |> join(:inner, [m], i in Calm.Invite, on: m.invite_id == i.id)
+      |> where([m, i], i.thread_id in ^thread_ids)
+      |> preload(invite: :thread)
+      |> distinct([m, i], i.thread_id)
 
-        redirect("/")
-        |> Session.embed(session, state.session_config)
-
-      _ ->
-        redirect("/")
-    end
+    Calm.Repo.all(query)
   end
-
-  # Template helper functions.
-  # Add shared helper functions to Calm.WWW.Layout.
 end

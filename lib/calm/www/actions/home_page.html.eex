@@ -1,16 +1,38 @@
-<main class="p-6">
-  <header class="p-4 text-2xl">
-    <h1>Calm</h1>
+<div class="flex flex-col h-full overflow-y-hidden mx-auto max-w-3xl bg-white shadow-2xl overflow-hidden">
+  <header class="bg-gray-300">
+    <h1 class="p-4 text-2xl truncate">Calm: A better way to talk!!!</h1>
   </header>
-  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-  <textarea class="block border-2 w-full" ></textarea>
-  <h2 class="text-2xl ">View my inbox</h2>
-    <!-- <form action="/" method="post">
-      <input type="hidden" name="_csrf_token" value="<%= csrf_token %>">
-      <label>
-        <span>tell us your name</span>
-        <input type="text" name="name" value="" autofocus>
-      </label>
-      <button type="submit">Submit</button>
-    </form> -->
-</main>
+  <div id="updates" class="flex-auto overflow-y-auto">
+    <article class="mx-4 my-4">
+      <!-- <header class="my-2">
+        <span class="inline-block mr-2 px-4 rounded bg-blue-700 text-white">The team</span>
+        <span class="text-gray-500">2020</span>
+      </header> -->
+      <p class="whitespace-pre-line">An experiment to keep in touch while respecting everyones time and attention.</p>
+    </article>
+    <div class="mx-4">
+      <hr class="w-1/2 mx-auto">
+    </div>
+    <%= if latest == [] do %>
+    <article class="mx-4 my-4">
+      <p class="whitespace-pre-line">You don't have any new messages.</p>
+    </article>
+    <% end %>
+    <%= for update <- latest do %>
+    <a class="block mx-4 my-6 border-l-2 pl-4 border-black cursor-pointer" href="/t/<%= update.invite.thread_id %>">
+      <header class="">
+        <span class="inline-block mr-2 font-bold"><%= update.invite.thread.subject %></span>
+        <!-- <span class="inline-block mr-2 px-4 rounded bg-<%= update.invite.color %>-700 text-white"><%= update.invite.nickname %></span> -->
+        <span class="text-gray-500"><%= Calm.WWW.Actions.ThreadPage.update_time(update) %></span>
+      </header>
+      <p class="whitespace-pre-line text-gray-600"><%= update.invite.nickname %>: <%= hd(String.split(update.text, ~r/\R/, parts: 2)) %></p>
+      <!-- <p class="whitespace-pre-line"><%= update.invite.nickname %>: <%= update.text %></p> -->
+    </a>
+    <% end %>
+  </div>
+  <footer class="">
+    <div class="mx-4 my-4 text-right">
+      <a class="text-blue-500" href="#">View on Github</a>
+    </div>
+  </footer>
+</div>
