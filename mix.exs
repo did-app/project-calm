@@ -38,7 +38,8 @@ defmodule Calm.Mixfile do
 
   defp aliases() do
     [
-      test: ["ecto.create --quiet", "ecto.migrate", "test"]
+      test: ["ecto.create --quiet", "ecto.migrate", "test"],
+      setup: ["ecto.migrate"]
     ]
   end
 
