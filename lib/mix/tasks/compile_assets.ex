@@ -3,8 +3,10 @@ defmodule Mix.Tasks.CompileAssets do
   require Logger
 
   def run(_args) do
-    {_, 0} = System.cmd("npm", ["run", "compile:css"], cd: "lib/calm/www")
+    {_, 0} = System.cmd("npm", ["install"], cd: "lib/calm/www")
+    Logger.info("Node dependencies installed")
 
+    {_, 0} = System.cmd("npm", ["run", "compile:css"], cd: "lib/calm/www")
     Logger.info("Assets compiled successfully")
   end
 end
