@@ -11,7 +11,7 @@ defmodule Calm.Invite do
     timestamps(type: :utc_datetime_usec)
   end
 
-  @colors ["gray", "red", "orange", "yellow", "green", "teal", "blue", "indigo", "purple"]
+  @colors ["gray", "red", "orange", "yellow", "green", "teal", "blue", "indigo", "purple", "pink"]
 
   def create(thread, params, secret) do
     import Ecto.Changeset
