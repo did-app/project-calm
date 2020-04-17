@@ -1,22 +1,25 @@
 <div class="flex flex-col h-full overflow-y-hidden mx-auto max-w-3xl bg-white shadow-2xl overflow-hidden">
   <header class="bg-gray-300">
-    <h1 class="p-4 text-xl truncate">A Demo thread explaing how I would use Calm</h1>
+    <h1 class="p-4 text-xl truncate"><%= invite.thread.subject %></h1>
   </header>
   <div id="updates" class="flex-auto overflow-y-auto">
-    <%= for update <- updates do %>
-    <article class="mx-4 my-6">
+    <%= for update <- messages do %>
+    <article id="<%= update.cursor %>" class="mx-4 my-6">
       <header class="my-2">
-        <span class="inline-block mr-2 px-4 rounded bg-<%= update.color %>-700 text-white"><%= update.name %></span>
-        <span class="text-gray-500"><%= update.time %></span>
+        <span class="inline-block mr-2 px-4 rounded bg-<%= update.invite.color %>-700 text-white"><%= update.invite.nickname %></span>
+        <span class="text-gray-500"><%= update.inserted_at %></span>
       </header>
       <p class="whitespace-pre-line"><%= update.text %></p>
       </article>
 
     <% end %>
   </div>
+  <!-- TODO show who you are writing as -->
+  <!-- TODO Poll for updates -->
+  <!-- TODO Readme, pretty much all JS is optional -->
   <footer class="">
     <div class="mx-4 my-2 p-2 border-2 rounded focus-within:border-gray-500">
-      <form class="" action="/t/<%= thread_id %>/message" method="post">
+      <form class="" action="/t/<%= invite.thread.id %>/post" method="post">
         <input type="hidden" name="_csrf_token" value="<%= csrf_token %>">
         <textarea class="w-full resize-y rounded focus:outline-none overflow-auto" placeholder="Write an update.
 To share a link include the 'http' prefix." style="min-height:4.5em;max-height:40vh;" name="text"></textarea>

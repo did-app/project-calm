@@ -11,6 +11,7 @@ services:
       - db
     environment:
       - "DATABASE_URL=ecto://z5XKESER:LS8jTnO4IZeebZuLJ5@db:5432/calm?ssl=false&pool_size=10"
+      - SECRET_KEY_BASE=sFsdI1lod4L8cG6yday2_B_vn1gpAx3kXSus_iXfhHQ4JZ1VFOYvd1UO2jOOl_U0
     ports:
       - 8080:8080
       - 8443:8443

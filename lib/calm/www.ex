@@ -1,7 +1,7 @@
 defmodule Calm.WWW do
-
   def child_spec([server_options]) do
     {:ok, port} = Keyword.fetch(server_options, :port)
+
     %{
       id: {__MODULE__, port},
       start: {__MODULE__, :start_link, [server_options]},
@@ -12,7 +12,7 @@ defmodule Calm.WWW do
   @session_config Raxx.Session.config(
                     key: "my_app_session",
                     store: Raxx.Session.SignedCookie,
-                    secret_key_base: "sFsdI1lod4L8cG6yday2_B_vn1gpAx3kXSus_iXfhHQ4JZ1VFOYvd1UO2jOOl_U0",
+                    secret_key_base: System.get_env("SECRET_KEY_BASE"),
                     salt: "VSLaz9"
                   )
 

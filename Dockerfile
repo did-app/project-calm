@@ -26,6 +26,8 @@ COPY . .
 
 # Make sure the Docker image can be started without waiting for the project to compile
 # NOTE: mix deps.get is needed to update the freshly copied mix.lock file
-RUN mix do deps.get, compile
+RUN mix do deps.get
+# Can't do compile at build stage because the SECRET_KEY_BASE for sessions is read at compile time
+# RUN mix do deps.get, compile
 
 CMD ["sh", "./bin/start.sh"]

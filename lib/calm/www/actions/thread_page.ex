@@ -1,58 +1,20 @@
 defmodule Calm.WWW.Actions.ThreadPage do
   use Raxx.SimpleServer
-  use Calm.WWW.Layout, arguments: [:thread_id, :updates, :csrf_token]
+  use Calm.WWW.Layout, arguments: [:invite, :messages, :csrf_token]
 
-  def handle_request(request, _config) do
+  def handle_request(request, config) do
     ["t", thread_id] = request.path
+    {thread_id, ""} = Integer.parse(thread_id)
+    {:ok, session} = Raxx.Session.extract(request, config.session_config)
+    {:ok, invite_id} = Map.fetch(session.threads, thread_id)
+    {:ok, invite} = Calm.Invite.fetch_by_id(invite_id)
 
-    updates = [
-      %{
-        text:
-          ~s"""
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    messages = Calm.Message.load_thread(invite.thread_id)
 
-          https://did.app/docs
-          A much smaller random paragraph
-          """
-          |> String.trim(),
-        name: "Peter",
-        color: "teal",
-        time: "Yesterday"
-      },
-      %{
-        text:
-          ~s"""
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          """
-          |> String.trim(),
-        name: "Susan Furtado",
-        color: "gray",
-        time: "2 hours ago"
-      },
-      %{
-        text:
-          ~s"""
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-
-          - one
-          - two
-
-          1. one
-          2. two
-
-          A much smaller random paragraph
-          """
-          |> String.trim(),
-        name: "Peter",
-        color: "teal",
-        time: "5 minutes ago"
-      }
-    ]
+    {csrf_token, session} = Raxx.Session.get_csrf_token(session)
 
     response(:ok)
-    |> render(thread_id, updates, "dummy")
-
-    # TODO post anywhere
-    # Create a link
+    |> render(invite, messages, csrf_token)
+    |> Raxx.Session.embed(session, config.session_config)
   end
 end

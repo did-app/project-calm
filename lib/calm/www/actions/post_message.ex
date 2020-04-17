@@ -1,22 +1,22 @@
 defmodule Calm.WWW.Actions.PostMessage do
-  # use Raxx.SimpleServer
+  use Raxx.SimpleServer
 
-  # def handle_request(request, _config) do
-  #   ["t", thread_id, "post"] = request.path
-  #   {:ok, session} = load_session()
-  #   {:ok, invite} = session[thread_id]
-  #   Invite.post(message)
-  #   # fetch invite for private, get invite for public
-  #   IO.inspect(request)
-  #   IO.inspect(get_form(request))
-  #   {:ok, thread} = Calm.Thread.load()
-  #   {:ok, _} = Calm.Thread.check_password(thread(session))
-  #   {:ok, message} = Calm.Thread.post_message(thread, form_data)
-  #
-  #   redirect(thread_path(thread_id, message_id))
-  # end
-  #
-  # def get_form(request) do
-  #   URI.decode_query(request.body || "")
-  # end
+  def handle_request(request, config) do
+    ["t", thread_id, "post"] = request.path
+    {thread_id, ""} = Integer.parse(thread_id)
+
+    params = get_form(request)
+    {:ok, csrf_token} = Map.fetch(params, "_csrf_token")
+
+    {:ok, session} = Raxx.Session.extract(request, csrf_token, config.session_config)
+    {:ok, invite_id} = Map.fetch(session.threads, thread_id)
+    {:ok, invite} = Calm.Invite.fetch_by_id(invite_id)
+
+    {:ok, message} = Calm.Invite.post_message(invite, params)
+    redirect("/t/#{invite.thread_id}##{message.cursor}")
+  end
+
+  def get_form(request) do
+    URI.decode_query(request.body || "")
+  end
 end

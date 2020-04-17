@@ -2,12 +2,6 @@ defmodule Calm.Repo.Migrations.CreateThreads do
   use Ecto.Migration
 
   def change do
-    # Definetly running this experiement
-    # create table(:users) do
-    #   add(:id, :binary_id, primary_key: true)
-    #   add(:name, :string, null: false)
-    # end
-
     create table(:threads) do
       add(:subject, :string, null: false)
 
@@ -32,7 +26,6 @@ defmodule Calm.Repo.Migrations.CreateThreads do
       timestamps(type: :utc_datetime_usec)
     end
 
-    # cursor + thread_id is unique
     create(unique_index(:invites, [:thread_id, :nickname]))
   end
 end

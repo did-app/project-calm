@@ -3,6 +3,7 @@ defmodule Calm.Invite do
 
   schema "invites" do
     belongs_to(:thread, Calm.Thread)
+    has_many(:messages, Calm.Message)
     field(:nickname, :string)
     field(:color, :string)
     field(:secret_check, :string)
@@ -26,6 +27,11 @@ defmodule Calm.Invite do
     |> validate_inclusion(:color, @colors)
     |> validate_length(:nickname, min: 2, max: 30)
     |> Calm.Repo.insert()
+  end
+
+  def post_message(invite, params) do
+    cursor = Calm.Message.count_thread(invite.thread_id)
+    Calm.Message.create(invite.id, cursor, params)
   end
 
   def check_secret(invite, secret) do
