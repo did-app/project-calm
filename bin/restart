@@ -1,0 +1,10 @@
+#! /bin/bash
+
+set -eux
+
+cd "${0%/*}"
+cd ".."
+
+./bin/compose kill $1
+./bin/compose up -d
+./bin/logs $1

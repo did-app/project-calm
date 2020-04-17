@@ -16,16 +16,15 @@
   </div>
   <footer class="">
     <div class="mx-4 my-2 p-2 border-2 rounded focus-within:border-gray-500">
-      <form class="" action="index.html" method="post">
-
+      <form class="" action="/t/<%= thread_id %>/message" method="post">
+        <input type="hidden" name="_csrf_token" value="<%= csrf_token %>">
         <textarea class="w-full resize-y rounded focus:outline-none overflow-auto" placeholder="Write an update.
-To share a link include the 'http' prefix." style="min-height:4.5em;max-height:40vh;"></textarea>
+To share a link include the 'http' prefix." style="min-height:4.5em;max-height:40vh;" name="text"></textarea>
         <div class="flex flex-row-reverse">
-          <button class="font-bold mx-1 py-1 px-4 bg-gray-200 hover:bg-gray-400 rounded" type="submit" name="button">Send</button>
-          <button class="text-gray-700 mx-1 py-1 px-4 hover:bg-gray-300 rounded" type="reset" name="button">Discard</button>
+          <button class="font-bold mx-1 py-1 px-4 bg-gray-200 hover:bg-gray-400 rounded" type="submit">Send</button>
+          <button class="text-gray-700 mx-1 py-1 px-4 hover:bg-gray-300 rounded" type="reset">Discard</button>
         </div>
       </form>
-
     </div>
   </footer>
 </div>

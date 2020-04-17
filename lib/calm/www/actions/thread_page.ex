@@ -1,8 +1,10 @@
 defmodule Calm.WWW.Actions.ThreadPage do
   use Raxx.SimpleServer
-  use Calm.WWW.Layout, arguments: [:updates, :csrf_token]
+  use Calm.WWW.Layout, arguments: [:thread_id, :updates, :csrf_token]
 
-  def handle_request(_request, _config) do
+  def handle_request(request, _config) do
+    ["t", thread_id] = request.path
+
     updates = [
       %{
         text:
@@ -48,7 +50,7 @@ defmodule Calm.WWW.Actions.ThreadPage do
     ]
 
     response(:ok)
-    |> render(updates, "dummy")
+    |> render(thread_id, updates, "dummy")
 
     # TODO post anywhere
     # Create a link
