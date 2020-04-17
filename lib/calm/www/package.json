@@ -2,7 +2,8 @@
   "name": "calm",
   "scripts": {
     "watch:js": "rollup -w -i assets/main.js -o public/main.js -f iife -n main",
-    "watch:css": "postcss assets/main.css -o public/main.css -w"
+    "watch:css": "postcss assets/main.css -o public/main.css -w",
+    "compile:css": "postcss assets/main.css -o public/main.css"
   },
   "devDependencies": {
     "postcss-cli": "^7.1.0",
