@@ -1,6 +1,6 @@
 <div class="flex flex-col h-full overflow-y-hidden mx-auto max-w-3xl bg-white shadow-2xl overflow-hidden">
   <header class="bg-gray-300">
-    <h1 class="p-4 text-2xl truncate">Calm: A better way to talk!!!</h1>
+    <h1 class="p-4 text-2xl truncate">Calm: A better way to talk</h1>
   </header>
   <div id="updates" class="flex-auto overflow-y-auto">
     <article class="mx-4 my-4">
@@ -32,7 +32,7 @@
   </div>
   <footer class="">
     <div class="mx-4 my-4 text-right">
-      <a class="text-blue-500" href="#">View on Github</a>
+      <a class="text-blue-500" href="https://github.com/did-app/project-calm">View on Github</a>
     </div>
   </footer>
 </div>
