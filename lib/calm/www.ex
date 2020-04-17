@@ -23,11 +23,13 @@ defmodule Calm.WWW do
   @external_resource "lib/calm/www/public/main.js"
   options = [source: Path.join(__DIR__, "www/public")]
 
-  @static_setup (if(Mix.env() == :dev) do
-                   options
-                 else
-                   Raxx.Static.setup(options)
-                 end)
+  # @static_setup (if(Mix.env() == :dev) do
+  #                  options
+  #                else
+  #                  Raxx.Static.setup(options)
+  #                end)
+  # FIXME This is needed to work on heroku, we could have the compile steps work before starting the web process
+  @static_setup options
 
   def init() do
     %{session_config: @session_config}
