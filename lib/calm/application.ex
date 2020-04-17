@@ -15,10 +15,15 @@ defmodule Calm.Application do
     children = [
       Calm.Repo,
       {Calm.WWW, [cleartext_options]},
-      {Calm.WWW, [secure_options]}
-
-      # Supervisor.child_spec({Task, fn() -> System.cmd("npm", ["run", "watch:js"], cd: "lib/calm/www") end}, id: :watch_js),
-      # Supervisor.child_spec({Task, fn() -> System.cmd("npm", ["run", "watch:css"], cd: "lib/calm/www") end}, id: :watch_css),
+      {Calm.WWW, [secure_options]},
+      Supervisor.child_spec(
+        {Task, fn -> System.cmd("npm", ["run", "watch:js"], cd: "lib/calm/www") end},
+        id: :watch_js
+      ),
+      Supervisor.child_spec(
+        {Task, fn -> System.cmd("npm", ["run", "watch:css"], cd: "lib/calm/www") end},
+        id: :watch_css
+      )
     ]
 
     opts = [strategy: :one_for_one, name: Calm.Supervisor]
