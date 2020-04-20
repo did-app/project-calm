@@ -62,7 +62,7 @@ To share a link include the 'http' prefix." style="min-height:4.5em;max-height:4
     autoExpand(event.target);
   }, false);
 
-  var urlRegex = /(https?:\/\/[^\s]+[a-z])/g
+  var urlRegex = /(https?:\/\/[^\s]+[^\.\s])/g
   function insertLinks($element) {
     $element.innerHTML = $element.innerText.replace(urlRegex, function (url) {
       return '<a class="text-indigo-500 hover:text-indigo-800 focus:text-indigo-800 hover:underline focus:underline " href="' + url + '">' + url + '</a>';
