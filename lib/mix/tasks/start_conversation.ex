@@ -25,6 +25,6 @@ defmodule Mix.Tasks.StartConversation do
     {:ok, invite} =
       Calm.Invite.create(thread, %{"nickname" => nickname, "color" => color}, secret)
 
-    Logger.info("Invite created for Peter with path: '/i/#{invite.id}/#{secret}'")
+    Logger.info("Invite created for #{nickname} with path: '/i/#{invite.id}/#{secret}'")
   end
 end
