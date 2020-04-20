@@ -26,7 +26,7 @@ defmodule Calm.InviteTest do
     {:ok, %{id: id}} = Invite.create(thread, %{"nickname" => "Bill", "color" => "blue"}, secret)
 
     {:ok, invite} = Invite.fetch_by_id(id)
-    assert invite.thread == thread
+    assert invite.thread == Calm.Repo.preload(thread, [:invites])
   end
 
   test "check secret", setup do

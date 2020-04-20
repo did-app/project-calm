@@ -30,6 +30,9 @@ defmodule Calm.Application do
             id: :watch_css
           )
         ]
+
+        # TODO remove
+        []
       else
         []
       end

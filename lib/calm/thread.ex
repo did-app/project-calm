@@ -37,4 +37,14 @@ defmodule Calm.Thread do
         {:ok, invite}
     end
   end
+
+  def edit_subject(thread_id, subject) do
+    import Ecto.Changeset
+    {:ok, thread} = fetch_by_id(thread_id)
+
+    thread
+    |> change(subject: subject)
+    |> Changeset.validate_length(:subject, min: 5, max: 100)
+    |> Calm.Repo.update()
+  end
 end
