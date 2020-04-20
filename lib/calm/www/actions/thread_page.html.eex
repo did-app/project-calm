@@ -1,12 +1,15 @@
 <div class="flex flex-col h-full overflow-y-hidden mx-auto max-w-3xl bg-white shadow-2xl overflow-hidden">
-  <header class="bg-gray-300">
-    <h1 class="p-4 text-xl truncate"><%= invite.thread.subject %></h1>
+  <header class="bg-gray-300 p-4">
+    <h1 class="text-xl truncate"><%= invite.thread.subject %></h1>
+    <%= for member <- invite.thread.invites do %>
+      <span class="inline-block mr-2 px-4 rounded bg-<%= member.color %>-700 text-white text-sm opacity-50"><%= member.nickname %></span>
+    <% end %>
   </header>
   <div id="updates" class="flex-auto overflow-y-auto">
     <%= for update <- messages do %>
     <article id="<%= update.cursor %>" class="mx-4 my-4">
-      <header class="my-2">
-        <span class="inline-block mr-2 px-4 rounded bg-<%= update.invite.color %>-700 text-white"><%= update.invite.nickname %></span>
+      <header class="my-2 text-sm">
+        <span class="inline-block mr-2 px-4 rounded bg-<%= update.invite.color %>-700 text-white opacity-50"><%= update.invite.nickname %></span>
         <span class="text-gray-500"><%= update_time(update) %></span>
       </header>
       <p class="whitespace-pre-line"><%= update.text %></p>

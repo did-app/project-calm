@@ -49,7 +49,7 @@ defmodule Calm.Invite do
     query =
       __MODULE__
       |> where([i], i.id == ^id)
-      |> preload(thread: [])
+      |> preload(thread: [:invites])
 
     case Calm.Repo.one(query) do
       nil ->

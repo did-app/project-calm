@@ -4,6 +4,7 @@ defmodule Calm.Thread do
 
   schema "threads" do
     field(:subject, :string)
+    has_many(:invites, Calm.Invite)
 
     timestamps(type: :utc_datetime_usec)
   end
